@@ -30,6 +30,11 @@ class Places
      */
     private $isReserved;
 
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $place_number;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -55,6 +60,18 @@ class Places
     public function setIsReserved(bool $isReserved): self
     {
         $this->isReserved = $isReserved;
+
+        return $this;
+    }
+
+    public function getPlaceNumber(): ?int
+    {
+        return $this->place_number;
+    }
+
+    public function setPlaceNumber(int $place_number): self
+    {
+        $this->place_number = $place_number;
 
         return $this;
     }
