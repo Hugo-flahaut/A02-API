@@ -19,6 +19,6 @@ L'utilisateur doit pouvoir :
 ### Stack Technique :
 - Maquettage : Figma
 - Diagramme UML : Draw.io
-- Base de données : MongoDB
+- Base de données : MySql
 - Front-end : Vue JS
 - Back-end : Symfony 5.2 / API Platform
