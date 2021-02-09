@@ -22,3 +22,7 @@ L'utilisateur doit pouvoir :
 - Base de données : MySql
 - Front-end : Vue JS
 - Back-end : Symfony 5.2 / API Platform
+
+### Evolutions possibles:
+- Places réservés au click pendant 10 min
+- Liaison à movies database
