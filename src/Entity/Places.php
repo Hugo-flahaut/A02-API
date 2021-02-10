@@ -2,12 +2,16 @@
 
 namespace App\Entity;
 
-use ApiPlatform\Core\Annotation\ApiResource;
-use App\Repository\PlacesRepository;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\PlacesRepository;
+use ApiPlatform\Core\Annotation\ApiResource;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
- * @ApiResource()
+ * @ApiResource(
+ *      normalizationContext={"groups"={"places:read"}},
+ *      denormalizationContext={"groups"={"places:write"}}
+ * )
  * @ORM\Entity(repositoryClass=PlacesRepository::class)
  */
 class Places
@@ -16,27 +20,32 @@ class Places
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups({"places:read"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="integer")
+     * @Groups({"places:read", "places:write"})
      */
     private $placeNumber;
 
     /**
      * @ORM\ManyToOne(targetEntity=Rooms::class, inversedBy="places")
      * @ORM\JoinColumn(nullable=false)
+     * @Groups({"places:read", "rooms:read"})
      */
     private $rooms;
 
     /**
      * @ORM\Column(type="boolean")
+     * @Groups({"places:read", "places:write"})
      */
     private $isReserved;
 
     /**
      * @ORM\ManyToOne(targetEntity=Orders::class, inversedBy="places")
+     * @Groups({"places:read", "orders:read"})
      */
     private $orders;
 

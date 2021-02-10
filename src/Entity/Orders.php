@@ -2,14 +2,18 @@
 
 namespace App\Entity;
 
-use ApiPlatform\Core\Annotation\ApiResource;
-use App\Repository\OrdersRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\OrdersRepository;
+use Doctrine\Common\Collections\Collection;
+use ApiPlatform\Core\Annotation\ApiResource;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
- * @ApiResource()
+ * @ApiResource(
+ *      normalizationContext={"groups"={"orders:read"}},
+ *      denormalizationContext={"groups"={"orders:write"}}
+ * )
  * @ORM\Entity(repositoryClass=OrdersRepository::class)
  */
 class Orders
@@ -18,26 +22,31 @@ class Orders
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups({"orders:read"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=100)
+     * @Groups({"orders:read", "orders:write"})
      */
     private $firstName;
 
     /**
      * @ORM\Column(type="string", length=100)
+     * @Groups({"orders:read", "orders:write"})
      */
     private $lastName;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
+     * @Groups({"orders:write"})
      */
     private $createdAt;
 
     /**
      * @ORM\OneToMany(targetEntity=Places::class, mappedBy="orders")
+     * @Groups({"orders:read", "places:write"})
      */
     private $places;
 

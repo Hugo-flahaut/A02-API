@@ -13,3 +13,6 @@ php bin/console doctrine:migrations:migrate
 
 ### Supprimer la base de données
 php bin/console doctrine:database:drop -f
+
+# Si il y a des erreurs !
+php bin/console clear:cache

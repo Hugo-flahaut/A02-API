@@ -3,13 +3,17 @@
 namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
+use Symfony\Component\Serializer\Annotation\Groups;
 use App\Repository\RoomsRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ApiResource()
+ * @ApiResource(
+ *  normalizationContext={"groups"={"rooms:read"}},
+ *  denormalizationContext={"groups"={"rooms:write"}}
+ * )
  * @ORM\Entity(repositoryClass=RoomsRepository::class)
  */
 class Rooms
@@ -18,19 +22,22 @@ class Rooms
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups({"rooms:read"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=150)
+     * @Groups({"rooms:read", "rooms:write"})
      */
     private $name;
 
     /**
      * @ORM\OneToMany(targetEntity=Places::class, mappedBy="rooms")
+     * @ORM\JoinColumn(nullable=false)
+     * @Groups({"rooms:read", "places:write"})
      */
     private $places;
-
 
     public function __construct()
     {
