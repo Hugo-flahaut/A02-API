@@ -20,6 +20,11 @@ class Places
     private $id;
 
     /**
+     * @ORM\Column(type="integer")
+     */
+    private $placeNumber;
+
+    /**
      * @ORM\ManyToOne(targetEntity=Rooms::class, inversedBy="places")
      * @ORM\JoinColumn(nullable=false)
      */
@@ -31,9 +36,9 @@ class Places
     private $isReserved;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\ManyToOne(targetEntity=Orders::class, inversedBy="places")
      */
-    private $place_number;
+    private $orders;
 
     public function getId(): ?int
     {
@@ -66,12 +71,24 @@ class Places
 
     public function getPlaceNumber(): ?int
     {
-        return $this->place_number;
+        return $this->placeNumber;
     }
 
-    public function setPlaceNumber(int $place_number): self
+    public function setPlaceNumber(int $placeNumber): self
     {
-        $this->place_number = $place_number;
+        $this->placeNumber = $placeNumber;
+
+        return $this;
+    }
+
+    public function getOrders(): ?Orders
+    {
+        return $this->orders;
+    }
+
+    public function setOrders(?Orders $orders): self
+    {
+        $this->orders = $orders;
 
         return $this;
     }

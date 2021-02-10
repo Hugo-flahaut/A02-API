@@ -31,10 +31,6 @@ class Rooms
      */
     private $places;
 
-    /**
-     * @ORM\OneToOne(targetEntity=Movies::class, mappedBy="rooms", cascade={"persist", "remove"})
-     */
-    private $movies;
 
     public function __construct()
     {
@@ -88,25 +84,4 @@ class Rooms
         return $this;
     }
 
-    public function getMovies(): ?Movies
-    {
-        return $this->movies;
-    }
-
-    public function setMovies(?Movies $movies): self
-    {
-        // unset the owning side of the relation if necessary
-        if ($movies === null && $this->movies !== null) {
-            $this->movies->setRooms(null);
-        }
-
-        // set the owning side of the relation if necessary
-        if ($movies !== null && $movies->getRooms() !== $this) {
-            $movies->setRooms($this);
-        }
-
-        $this->movies = $movies;
-
-        return $this;
-    }
 }
