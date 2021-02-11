@@ -10,6 +10,7 @@ http://127.0.0.1:8000/api
 ## Créer la base de données
 php bin/console doctrine:database:create
 php bin/console doctrine:migrations:migrate
+php bin/console doctrine:fixtures:load
 
 ### Supprimer la base de données
 php bin/console doctrine:database:drop -f

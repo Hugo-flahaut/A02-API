@@ -25,6 +25,8 @@ class OrdersDataPersister implements ContextAwareDataPersisterInterface
     {
         $data->setCreatedAt(new \DateTime("now", new \DateTimeZone('Europe/Paris')));
 
+        $data->getPlaces()[0]->setIsReserved(true);
+ 
         $this->_entityManager->persist($data);
         $this->_entityManager->flush();
         return $data;

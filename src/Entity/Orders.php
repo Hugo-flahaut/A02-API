@@ -8,6 +8,7 @@ use Doctrine\Common\Collections\Collection;
 use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ApiResource(
@@ -28,13 +29,27 @@ class Orders
 
     /**
      * @ORM\Column(type="string", length=100)
-     * @Groups({"orders:read", "orders:write"})
+     * @Groups({"orders:read", "orders:write", "places:read"})
+     * @Assert\NotBlank
+     * @Assert\Length(
+     *   min = 4,
+     *   max = 20,
+     *   minMessage = "Votre prénom doit faire au moins {{ limit }} caractères",
+     *   maxMessage = "Votre prénom ne doit pas faire plus de {{ limit }} caractères"
+     * )
      */
     private $firstName;
 
     /**
      * @ORM\Column(type="string", length=100)
-     * @Groups({"orders:read", "orders:write"})
+     * @Groups({"orders:read", "orders:write", "places:read"})
+     * @Assert\NotBlank
+     * @Assert\Length(
+     *   min = 4,
+     *   max = 20,
+     *   minMessage = "Votre nom doit faire au moins {{ limit }} caractères",
+     *   maxMessage = "Votre nom ne doit pas faire plus de {{ limit }} caractères"
+     * )
      */
     private $lastName;
 
@@ -46,7 +61,8 @@ class Orders
 
     /**
      * @ORM\OneToMany(targetEntity=Places::class, mappedBy="orders")
-     * @Groups({"orders:read"})
+     * @ORM\JoinColumn(nullable=false)
+     * @Groups({"orders:read", "orders:write"})
      */
     private $places;
 

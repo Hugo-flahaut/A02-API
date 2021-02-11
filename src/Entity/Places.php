@@ -5,7 +5,9 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\PlacesRepository;
 use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\Annotation\ApiSubresource;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ApiResource(
@@ -26,27 +28,30 @@ class Places
 
     /**
      * @ORM\Column(type="integer")
-     * @Groups({"places:read", "places:write"})
+     * @Groups({"places:read", "places:write", "orders:read"})
+     * @Assert\NotBlank
+     * @Assert\Positive
      */
     private $placeNumber;
 
     /**
      * @ORM\ManyToOne(targetEntity=Rooms::class, inversedBy="places")
      * @ORM\JoinColumn(nullable=false)
-     * @Groups({"places:read", "rooms:write"})
+     * @Groups({"places:read", "places:write"})
      */
     private $rooms;
 
     /**
      * @ORM\Column(type="boolean")
-     * @Groups({"places:read", "places:write"})
+     * @Groups({"places:read", "places:write", "orders:read"})
      */
     private $isReserved;
 
     /**
      * @ORM\ManyToOne(targetEntity=Orders::class, inversedBy="places")
      * @ORM\JoinColumn(nullable=true)
-     * @Groups({"places:read", "orders:write"})
+     * @Groups({"places:read", "places:write"})
+     * @ApiSubresource
      */
     private $orders;
 

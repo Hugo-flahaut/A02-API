@@ -8,6 +8,7 @@ use App\Repository\RoomsRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ApiResource(
@@ -29,13 +30,20 @@ class Rooms
     /**
      * @ORM\Column(type="string", length=150)
      * @Groups({"rooms:read", "rooms:write", "places:read"})
+     * @Assert\NotBlank
+     * @Assert\Length(
+     *   min = 4,
+     *   max = 20,
+     *   minMessage = "Votre prénom doit faire au moins {{ limit }} caractères",
+     *   maxMessage = "Votre prénom ne doit pas faire plus de {{ limit }} caractères"
+     * )
      */
     private $name;
 
     /**
      * @ORM\OneToMany(targetEntity=Places::class, mappedBy="rooms")
      * @ORM\JoinColumn(nullable=false)
-     * @Groups({"rooms:read"})
+     * @Groups({"rooms:read", "rooms:write"})
      */
     private $places;
 
