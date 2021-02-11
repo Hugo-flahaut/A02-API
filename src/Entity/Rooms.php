@@ -30,7 +30,7 @@ class Rooms
     /**
      * @ORM\Column(type="string", length=150)
      * @Groups({"rooms:read", "rooms:write", "places:read"})
-     * @Assert\NotBlank
+     * @Assert\NotBlank (message = "Ce champs ne peut être vide")
      * @Assert\Length(
      *   min = 4,
      *   max = 20,

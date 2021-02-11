@@ -43,7 +43,9 @@ class Orders
     /**
      * @ORM\Column(type="string", length=100)
      * @Groups({"orders:read", "orders:write", "places:read"})
-     * @Assert\NotBlank
+     * @Assert\NotBlank(
+     *   message = "Ce champs ne peux pas être vide"
+     * )
      * @Assert\Length(
      *   min = 4,
      *   max = 20,

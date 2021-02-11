@@ -29,7 +29,7 @@ class Places
     /**
      * @ORM\Column(type="integer")
      * @Groups({"places:read", "places:write", "orders:read"})
-     * @Assert\NotBlank
+     * @Assert\NotBlank( message = "Ce champs ne peut être vide")
      * @Assert\Positive
      */
     private $placeNumber;
