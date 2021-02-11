@@ -33,7 +33,7 @@ class Places
     /**
      * @ORM\ManyToOne(targetEntity=Rooms::class, inversedBy="places")
      * @ORM\JoinColumn(nullable=false)
-     * @Groups({"places:read", "rooms:read"})
+     * @Groups({"places:read", "rooms:write"})
      */
     private $rooms;
 
@@ -45,7 +45,8 @@ class Places
 
     /**
      * @ORM\ManyToOne(targetEntity=Orders::class, inversedBy="places")
-     * @Groups({"places:read", "orders:read"})
+     * @ORM\JoinColumn(nullable=true)
+     * @Groups({"places:read", "orders:write"})
      */
     private $orders;
 

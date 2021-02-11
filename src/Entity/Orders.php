@@ -46,7 +46,7 @@ class Orders
 
     /**
      * @ORM\OneToMany(targetEntity=Places::class, mappedBy="orders")
-     * @Groups({"orders:read", "places:write"})
+     * @Groups({"orders:read"})
      */
     private $places;
 

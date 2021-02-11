@@ -28,14 +28,14 @@ class Rooms
 
     /**
      * @ORM\Column(type="string", length=150)
-     * @Groups({"rooms:read", "rooms:write"})
+     * @Groups({"rooms:read", "rooms:write", "places:read"})
      */
     private $name;
 
     /**
      * @ORM\OneToMany(targetEntity=Places::class, mappedBy="rooms")
      * @ORM\JoinColumn(nullable=false)
-     * @Groups({"rooms:read", "places:write"})
+     * @Groups({"rooms:read"})
      */
     private $places;
 
