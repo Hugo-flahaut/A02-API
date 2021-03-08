@@ -5,6 +5,7 @@ namespace App\DataPersister;
 use ApiPlatform\Core\DataPersister\ContextAwareDataPersisterInterface;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Entity\Orders;
+use App\Entity\Places;
 
 class OrdersDataPersister implements ContextAwareDataPersisterInterface
 {
@@ -25,7 +26,9 @@ class OrdersDataPersister implements ContextAwareDataPersisterInterface
     {
         $data->setCreatedAt(new \DateTime("now", new \DateTimeZone('Europe/Paris')));
 
-        $data->getPlaces()[0]->setIsReserved(true);
+        for($i = 0; $i < count($data->getPlaces()); $i++){
+            $data->getPlaces()[$i]->setIsReserved(true);
+        }
  
         $this->_entityManager->persist($data);
         $this->_entityManager->flush();
