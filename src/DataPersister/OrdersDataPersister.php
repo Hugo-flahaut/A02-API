@@ -5,6 +5,7 @@ namespace App\DataPersister;
 use ApiPlatform\Core\DataPersister\ContextAwareDataPersisterInterface;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Entity\Orders;
+use App\Entity\Places;
 
 class OrdersDataPersister implements ContextAwareDataPersisterInterface
 {
