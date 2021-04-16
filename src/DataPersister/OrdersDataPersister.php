@@ -24,11 +24,7 @@ class OrdersDataPersister implements ContextAwareDataPersisterInterface
 
     public function persist($data, array $context = [])
     {
-        $data->setCreatedAt(new \DateTime("now", new \DateTimeZone('Europe/Paris')));
-
-        for($i = 0; $i < count($data->getPlaces()); $i++){
-            $data->getPlaces()[$i]->setIsReserved(true);
-        }
+        $data->setPassword();
  
         $this->_entityManager->persist($data);
         $this->_entityManager->flush();
